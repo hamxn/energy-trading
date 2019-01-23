@@ -1,0 +1,36 @@
+
+query selectResidents {
+  description: "Select all residents"
+  statement:
+      SELECT org.energy.trading.network.Resident
+}
+
+query selectBanks {
+  description: "Select all banks"
+  statement:
+      SELECT org.energy.trading.network.Bank
+}
+
+query selectUtilityCompanies {
+  description: "Select all utility companies"
+  statement:
+      SELECT org.energy.trading.network.UtilityCompany
+}
+
+query selectCoins {
+  description: "Select all coin assets"
+  statement:
+      SELECT org.energy.trading.network.Coins
+}
+
+query selectEnergy {
+  description: "Select all energy assets"
+  statement:
+      SELECT org.energy.trading.network.Energy
+}
+
+query selectCash {
+  description: "Select all cash assets"
+  statement:
+      SELECT org.energy.trading.network.Cash
+}

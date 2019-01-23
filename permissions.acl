@@ -1,0 +1,200 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Energy trading access control list.
+ */
+//Residents to have access only to their own account
+rule ResidentAccessOwnRecord {
+    description: "Allow residents to access only their profile"
+    participant(p): "org.energy.trading.network.Resident"
+    operation: READ, UPDATE, DELETE
+    resource(r): "org.energy.trading.network.Resident"
+    condition: (r.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+
+//Residents to have read only access to other Residents
+rule ResidentReadAccessResidents {
+    description: "Allow residents read access to other residents"
+    participant: "org.energy.trading.network.Resident"
+    operation: READ
+    resource: "org.energy.trading.network.Resident"
+    action: ALLOW
+}
+
+//Residents to have read only access to other Banks
+rule ResidentReadAccessBanks {
+    description: "Allow residents read access to other banks"
+    participant: "org.energy.trading.network.Resident"
+    operation: READ
+    resource: "org.energy.trading.network.Bank"
+    action: ALLOW
+}
+
+//Residents to have read only access to other Utility Companies
+rule ResidentReadAccessUtilityCompanies {
+    description: "Allow residents read access to other utility companies"
+    participant: "org.energy.trading.network.Resident"
+    operation: READ
+    resource: "org.energy.trading.network.UtilityCompany"
+    action: ALLOW
+}
+
+
+//Residents to have read access to all coins assets
+rule ResidentAccessCoinsRecord {
+    description: "Allow residents read access to all coins assets"
+    participant: "org.energy.trading.network.Resident"
+    operation: READ
+    resource: "org.energy.trading.network.Coins"
+    action: ALLOW
+}
+
+//Residents to have read access to all energy assets
+rule ResidentAccessEnergyRecord {
+    description: "Allow residents read access to all energy assets"
+    participant: "org.energy.trading.network.Resident"
+    operation: READ
+    resource: "org.energy.trading.network.Energy"
+    action: ALLOW
+}
+
+//Residents to have read access to all cash assets
+rule ResidentAccessCashRecord {
+    description: "Allow residents read access to all cash assets"
+    participant: "org.energy.trading.network.Resident"
+    operation: READ
+    resource: "org.energy.trading.network.Cash"
+    action: ALLOW
+}
+
+
+//Banks to have access to their own account
+rule BankAccessOwnRecord {
+    description: "Allow banks to access only their profile"
+    participant(p): "org.energy.trading.network.Bank"
+    operation: READ, UPDATE, DELETE
+    resource(r): "org.energy.trading.network.Bank"
+    condition: (r.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+//Banks to have read only access to other Banks
+rule BankReadAccessBanks {
+    description: "Allow banks read access to other Banks"
+    participant: "org.energy.trading.network.Bank"
+    operation: READ
+    resource: "org.energy.trading.network.Bank"
+    action: ALLOW
+}
+
+//Banks to have read only access to other Residents
+rule BankReadAccessResidents {
+    description: "Allow banks read access to other Residents"
+    participant: "org.energy.trading.network.Bank"
+    operation: READ
+    resource: "org.energy.trading.network.Resident"
+    action: ALLOW
+}
+
+//Banks to have read access to all coins assets
+rule BankAccessCoinsRecord {
+    description: "Allow banks read access to all coins assets"
+    participant: "org.energy.trading.network.Bank"
+    operation: READ
+    resource: "org.energy.trading.network.Coins"
+    action: ALLOW
+}
+
+//Banks to have read/update access to all cash assets
+rule BankAccessCashRecord {
+    description: "Allow banks read access to all cash assets"
+    participant: "org.energy.trading.network.Bank"
+    operation: READ
+    resource: "org.energy.trading.network.Cash"
+    action: ALLOW
+}
+
+
+//Utility Companies to have access to their own account
+rule UtilityCompanyAccessOwnRecord {
+    description: "Allow utilty company to access only their profile"
+    participant(p): "org.energy.trading.network.UtilityCompany"
+    operation: READ, UPDATE, DELETE
+    resource(r): "org.energy.trading.network.UtilityCompany"
+    condition: (r.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+//Utility Companies to have read only access to other Utility Companies
+rule UtilityCompanyReadAccessUtilityCompanies {
+    description: "Allow utility companies read access to other Utility Companies"
+    participant: "org.energy.trading.network.UtilityCompany"
+    operation: READ
+    resource: "org.energy.trading.network.UtilityCompany"
+    action: ALLOW
+}
+
+//Utility Companies to have read only access to other Residents
+rule UtilityCompanyReadAccessResidents {
+    description: "Allow utility companies read access to other Residents"
+    participant: "org.energy.trading.network.UtilityCompany"
+    operation: READ
+    resource: "org.energy.trading.network.Resident"
+    action: ALLOW
+}
+
+//Utility Companies to have read access to all coins assets
+rule UtilityCompanyAccessCoinsRecord {
+    description: "Allow utility companies read access to all coins assets"
+    participant: "org.energy.trading.network.UtilityCompany"
+    operation: READ
+    resource: "org.energy.trading.network.Coins"
+    action: ALLOW
+}
+
+//Utility Companies to have read/update access to all energy assets
+rule UtilityCompanyAccessEnergyRecord {
+    description: "Allow utility companies read access to all energy assets"
+    participant: "org.energy.trading.network.UtilityCompany"
+    operation: READ
+    resource: "org.energy.trading.network.Energy"
+    action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
