@@ -102,7 +102,7 @@ composer network ping --card admin@energy-trading
 
 ## 4. Start REST server
 ```
-composer-rest-server -c admin@energy-trading-network -n never -w true -p3000
+composer-rest-server -c admin@energy-trading -n never -w true -p3000
 ```
 The REST server to communicate with network is available here:
 `http://localhost:3001/explorer/`
