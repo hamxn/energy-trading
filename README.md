@@ -87,7 +87,7 @@ composer network install --card PeerAdmin@hlfv1 --archiveFile energy-trading@0.0
 Start the business network:
 
 ```
-composer network start --networkName energy-trading-network --networkVersion 0.0.5 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+composer network start --networkName energy-trading --networkVersion 0.0.5 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 ```
 
 Import the network administrator identity as a usable business network card:
