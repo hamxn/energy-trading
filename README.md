@@ -13,6 +13,13 @@ Hyperledger composer
 Angular
 
 # Architecture Flow
+![Architecture flow](https://github.com/hamxn/energy-trading/blob/master/architecture.png)
+
+# Workflow
+![Workflow](https://github.com/hamxn/energy-trading/blob/master/workflow.jpg)
+
+1. The Resident exchange coins/cash with Banks
+2. The Resident exchange energy/coins with UtilityCompany or other Resident on Market
 
 # Included Components
 
