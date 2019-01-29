@@ -87,7 +87,7 @@ composer network install --card PeerAdmin@hlfv1 --archiveFile energy-trading@0.0
 Start the business network:
 
 ```
-composer network start --networkName energy-trading-network --networkVersion 0.0.5 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+composer network start --networkName energy-trading --networkVersion 0.0.5 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 ```
 
 Import the network administrator identity as a usable business network card:
@@ -102,7 +102,7 @@ composer network ping --card admin@energy-trading
 
 ## 4. Start REST server
 ```
-composer-rest-server -c admin@energy-trading-network -n never -w true -p3000
+composer-rest-server -c admin@energy-trading -n never -w true -p3000
 ```
 The REST server to communicate with network is available here:
 `http://localhost:3001/explorer/`
