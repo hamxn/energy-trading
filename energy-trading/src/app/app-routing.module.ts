@@ -26,7 +26,6 @@ import { ResidentComponent } from './Resident/Resident.component';
 import { BankComponent } from './Bank/Bank.component';
 import { UtilityCompanyComponent } from './UtilityCompany/UtilityCompany.component';
 import { TransactionRBComponent } from './TransactionRB/TransactionRB.component';
-import { TransactionRMComponent } from './TransactionRM/TransactionRM.component';
 import { TransactionUMComponent } from './TransactionUM/TransactionUM.component';
 import { AllTransactionsComponent } from './AllTransactions/AllTransactions.component';
 
@@ -40,7 +39,6 @@ const routes: Routes = [
   { path: 'Bank', component: BankComponent },
   { path: 'UtilityCompany', component: UtilityCompanyComponent },
   { path: 'TransactionRB', component: TransactionRBComponent },
-  { path: 'TransactionRM', component: TransactionRMComponent },
   { path: 'TransactionUM', component: TransactionUMComponent },
   { path: 'AllTransactions', component: AllTransactionsComponent },
   

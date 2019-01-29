@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Observable } from 'rxjs/Observable';
 import { TransactionUMService } from './TransactionUM.service';
 import 'rxjs/add/operator/toPromise';
+import { connectableObservableDescriptor } from 'rxjs/observable/ConnectableObservable';
 
 //provide associated components
 @Component({
@@ -20,7 +21,6 @@ export class TransactionUMComponent {
   private order;
   private energy;
   private coins;
-  private owner;
 
   //define variables
   private coinsExchanged;
@@ -32,7 +32,6 @@ export class TransactionUMComponent {
   private allParticipants;
 
   private allOrders;
-  private consumer;
   
   private energyToCoinsObj;
   private orderID;
@@ -147,7 +146,7 @@ export class TransactionUMComponent {
   getEnergyOwnerID() {
     if(this.ownerObject.value.residentID) {
       return "EN_R" + this.ownerObject.value.residentID;
-    }else {
+    } else {
       return "EN_U" + this.ownerObject.value.utilityID;
     }
   }
@@ -155,7 +154,7 @@ export class TransactionUMComponent {
   getCoinsOwnerID() {
     if(this.ownerObject.value.residentID) {
       return "CO_R" + this.ownerObject.value.residentID;
-    }else {
+    } else {
       return "CO_U" + this.ownerObject.value.utilityID;
     }
   }
@@ -168,6 +167,14 @@ export class TransactionUMComponent {
     }
   }
 
+  getParticipantOwnerEntity(participant: any) {
+    if(participant.residentID) {
+      return "Resident";
+    }else {
+      return "UtilityCompany";
+    }
+  }
+
   isOwnerResident() {
     if(this.ownerObject.value.residentID) {
       return true;
@@ -176,7 +183,7 @@ export class TransactionUMComponent {
     }
   }
 
-  getOwnerEnity() {
+  getOwnerEntity() {
     if(this.ownerObject.value.residentID) {
       return "Resident";
     }else {
@@ -233,14 +240,9 @@ export class TransactionUMComponent {
         continue;
       }
 
-      if(orderX.ownerID == this.getOwnerID() && orderX.ownerEntity == this.getOwnerEnity()) {
+      if(orderX.ownerID == this.getOwnerID() && orderX.ownerEntity == this.getOwnerEntity()) {
         continue;
       }
-      console.log("A: = ");
-      console.log(orderX.ownerEntity);
-      console.log("B: = ");
-      console.log(this.getOwnerEnity());
-
       //exchange
       if(orderX.energyValue > this.energyValue.value) {
         //exchange with less than energy
@@ -297,30 +299,36 @@ export class TransactionUMComponent {
     var buyer;
     var seller;
     var exchangeValue;
-
+      
+    // determine orderX
     for (let participant of this.allParticipants) {  
-
-      if(participant.ownerEntity == "UtilityCompany") {
-        // Utility
-        if(this.getParticipantID(participant) == this.getOwnerID()) {
-          buyer = participant;
-        }
-      }else {
-        // Resident
-        if(this.action.value == this.SELL) {
-          // Seller
-          if(this.getParticipantID(participant) == this.getOwnerID()) {
+        console.log("ParticipantID: ");
+        console.log(this.getParticipantID(participant));
+        console.log("ownerID: ");
+        console.log(orderX.ownerID);
+        if(this.getParticipantID(participant) == orderX.ownerID && this.getParticipantOwnerEntity(participant) == orderX.ownerEntity) {
+          if(orderX.type == this.SELL) {
             seller = participant;
-          }
-        }
-        else {
-          // Buyer
-          if(this.getParticipantID(participant) == this.getOwnerID()) {
+          }else {
             buyer = participant;
           }
         }
-      }
     }
+
+    // determine owner
+    for (let participant of this.allParticipants) {  
+        console.log("ParticipantID: ");
+        console.log(this.getParticipantID(participant));
+        console.log("ownerID: ");
+        console.log(this.getOwnerID());
+      if(this.getParticipantID(participant) == this.getOwnerID() && this.getParticipantOwnerEntity(participant) == this.getOwnerEntity()) {
+        if(this.action.value == this.SELL) {
+          seller = participant;
+        }else {
+          buyer = participant;
+        }
+      }
+  }
 
     //identify value exchange
     if(orderX.energyValue > this.energyValue.value) {

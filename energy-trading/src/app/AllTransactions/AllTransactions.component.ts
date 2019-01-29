@@ -35,7 +35,7 @@ export class AllTransactionsComponent {
   sortByKey(array, key): Object[] {
     return array.sort(function(a, b) {
         var x = a[key]; var y = b[key];
-        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
     });
   }
 
@@ -77,9 +77,6 @@ export class AllTransactionsComponent {
       this.systemTransactions = systemList;
       this.performedTransactions = performedList;
       this.allTransactions = tempList;
-      console.log(this.allTransactions)
-      console.log(this.performedTransactions)
-      console.log(this.systemTransactions)
     })
     .catch((error) => {
         if(error == 'Server error'){
